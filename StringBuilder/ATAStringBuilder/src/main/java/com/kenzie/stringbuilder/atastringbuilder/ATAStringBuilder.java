@@ -32,7 +32,9 @@ public class ATAStringBuilder {
      */
     public ATAStringBuilder(String initialString) {
         // PARTICIPANTS - initialize here
-        value = new ArrayList<>();
+        //value = new ArrayList<>();
+        this();
+        this.append(initialString);
     }
 
     /**
@@ -45,7 +47,8 @@ public class ATAStringBuilder {
      */
     public int length() {
         // PARTICIPANTS - implement here
-        return -1;
+        //return -1;
+        return value.size();
     }
 
     /**
@@ -63,6 +66,20 @@ public class ATAStringBuilder {
      */
     public ATAStringBuilder append(String str) {
         // PARTICIPANTS - implement here
+        ATAStringBuilder sb = new ATAStringBuilder();
+        //if str is null append letters "null"
+        if(str == null){
+            value.add('n');
+            value.add('u');
+            value.add('l');
+            value.add('l');
+        }
+        else{
+        //else append parameter
+        for(char c : str.toCharArray()){
+            value.add(c);
+        }
+        }
         return this;
     }
 
@@ -82,6 +99,12 @@ public class ATAStringBuilder {
      */
     public ATAStringBuilder insert(int offset, char c) {
         // PARTICIPANTS - implement here
+        if(offset > value.size()){
+            throw new IndexOutOfBoundsException("Character cannot be inserted if it has less than 5 components");
+        }
+        else {
+            value.add(offset, c);
+        }
         return this;
     }
 
@@ -102,7 +125,14 @@ public class ATAStringBuilder {
      */
     public char charAt(int index) {
         // PARTICIPANTS - implement here
-        return ' ';
+        //index argument must be >= 0 and < length of this sequence
+        if(index < 0 || index >= value.size()){
+            throw new IndexOutOfBoundsException("Out of bounds.");
+        }
+        else {
+            value.get(index);
+        }
+        return value.get(index);
     }
 
     /**
@@ -124,6 +154,14 @@ public class ATAStringBuilder {
      */
     public ATAStringBuilder setCharAt(int index, char ch) {
         // PARTICIPANTS - implement here
+        //index argument must be >= 0 and < this sequence
+        if(index < 0 || index >= value.size()){
+            throw new IndexOutOfBoundsException("Out of bounds.");
+        }
+        else {
+            value.set(index,ch);
+        }
+
         return this;
     }
 
@@ -141,9 +179,15 @@ public class ATAStringBuilder {
      */
     public ATAStringBuilder deleteCharAt(int index) {
         // PARTICIPANTS - implement here
+        if(index < 0 || index >= value.size()){
+            throw new IndexOutOfBoundsException("Out of bounds.");
+        }
+        else {
+            value.remove(index);
+        }
         return this;
     }
-    
+
     /**
      * EXTENSION 2
      * <p>
@@ -157,10 +201,23 @@ public class ATAStringBuilder {
     //CHECKSTYLE:OFF:OverloadMethodsDeclarationOrder
     public ATAStringBuilder append(Object obj) {
         // PARTICIPANTS - implement here
+        ATAStringBuilder sb = new ATAStringBuilder();
+        String str = String.valueOf(obj);
+        if(obj == null){
+            value.add('n');
+            value.add('u');
+            value.add('l');
+            value.add('l');
+        } else {
+            for (char c : str.toCharArray()) {
+                value.add(c);
+            }
+        }
+
         return this;
     }
     //CHECKSTYLE:ON:OverloadMethodsDeclarationOrder
-    
+
     /**
      * EXTENSION 2
      * <p>
@@ -186,6 +243,23 @@ public class ATAStringBuilder {
     //CHECKSTYLE:OFF:OverloadMethodsDeclarationOrder
     public ATAStringBuilder insert(int offset, String str) {
         // PARTICIPANTS - implement here
+        //offset must be >= 0 && offset must be <= length of sequence
+        //throw out of bounds exception if offset is invalid
+        if(offset < 0 || offset > value.size()){
+            throw new IndexOutOfBoundsException("Out of bounds.");
+            //if str is null, 'null' is inserted to sequence
+        } else if (str == null) {
+            value.add('n');
+            value.add('u');
+            value.add('l');
+            value.add('l');
+        } else {
+            //for the length of str
+            for (char c : str.toCharArray()) {
+                value.add(offset,c);
+                offset++;
+            }
+        }
         return this;
     }
     //CHECKSTYLE:ON:OverloadMethodsDeclarationOrder
@@ -208,7 +282,19 @@ public class ATAStringBuilder {
      */
     public String substring(int start, int end) {
         // PARTICIPANTS - implement here
-        return null;
+        int i = start;
+        ATAStringBuilder sb = new ATAStringBuilder();
+        if(0 < start && start > value.size() || 0 < end && end > value.size() || start > end){
+            throw new IndexOutOfBoundsException("Out of bounds.");
+        } else {
+            for (char c : value) {
+                if (start < i + end ){
+                    sb.append(charAt(start));
+                    start++;
+                }
+            }
+           }
+        return sb.toString();
     }
 
     @Override

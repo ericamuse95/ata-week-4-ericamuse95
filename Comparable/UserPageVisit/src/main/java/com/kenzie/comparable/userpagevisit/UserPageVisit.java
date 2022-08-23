@@ -1,5 +1,7 @@
 package com.kenzie.comparable.userpagevisit;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -35,21 +37,17 @@ public class UserPageVisit implements Comparable<UserPageVisit> {
         return timeOnPageInSeconds;
     }
 
-    /**
-     * The method that checks if this object is equal to another object. If the object is of same type,
-     * the fields that are compared for equality are userId and page. Field timeOnPageInSeconds is ignored.
-     * @param o - object to compare this object against.
-     * @return true if objects are equal, false otherwise.
-     */
     @Override
     public boolean equals(Object o) {
-        // PARTICIPANTS: implement equals method here (hint: you can use intellij's auto-generate).
-        return true;
+        if (this == o) return true;
+        if (!(o instanceof UserPageVisit)) return false;
+        UserPageVisit that = (UserPageVisit) o;
+        return getUserId() == that.getUserId() && getPage().equals(that.getPage());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, page);
+        return Objects.hash(getUserId(), getPage());
     }
 
     /**
@@ -66,7 +64,16 @@ public class UserPageVisit implements Comparable<UserPageVisit> {
     @Override
     public int compareTo(UserPageVisit other) {
         // PARTICIPANTS: implement compareTo method here
-        return 0;
+        if (UserPageVisit.this.equals(other)) {
+            return 0;
+        } else if(UserPageVisit.this.getUserId() > other.getUserId()){
+            return 1;
+        }
+        else if(UserPageVisit.this.page.compareTo(other.page) > 0){
+            return 1;
+        } else {
+            return -1;
+        }
     }
 
     @Override

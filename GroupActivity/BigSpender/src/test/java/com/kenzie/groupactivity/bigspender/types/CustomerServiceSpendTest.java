@@ -17,7 +17,7 @@ public class CustomerServiceSpendTest {
     private LocalDate nedflixJoinDate;
 
     @BeforeEach
-    private void setup() throws ParseException {
+    void setup() throws ParseException {
         nedflixJoinDate = LocalDate.of(2008, 11, 1);
         nedflix = new Customer("nedflix", nedflixJoinDate);
         nedflixCustomerServiceSpend = new CustomerServiceSpend(nedflix, nedflixSagemakerSpend);
@@ -30,10 +30,10 @@ public class CustomerServiceSpendTest {
         CustomerServiceSpend equalCustomerServiceSpend = new CustomerServiceSpend(equalNedflix, nedflixSagemakerSpend);
 
         // WHEN
-
+        int result = nedflixCustomerServiceSpend.compareTo(equalCustomerServiceSpend);
 
         // THEN
-        fail("Not implemented");
+        assertEquals(0, result);
     }
 
     @Test
@@ -43,10 +43,10 @@ public class CustomerServiceSpendTest {
         CustomerServiceSpend laterCustomerServiceSpend = new CustomerServiceSpend(laterCustomer, nedflixSagemakerSpend);
 
         // WHEN
-
+        int result = nedflix.compareTo(laterCustomer);
 
         // THEN
-        fail("Not implemented");
+        assertTrue(result < 0, String.format("expected %s to come before %s",laterCustomer,laterCustomerServiceSpend));
     }
 
     @Test
@@ -56,10 +56,12 @@ public class CustomerServiceSpendTest {
         CustomerServiceSpend earlierCustomerServiceSpend = new CustomerServiceSpend(earlierCustomer, nedflixSagemakerSpend);
 
         // WHEN
+        int result = nedflix.compareTo(earlierCustomer);
 
 
         // THEN
-        fail("Needs implemented");
+//        assertEquals(1, result);
+        assertTrue(result > 0, String.format("expected %s to come before %s",earlierCustomer,earlierCustomerServiceSpend));
     }
 
     @Test

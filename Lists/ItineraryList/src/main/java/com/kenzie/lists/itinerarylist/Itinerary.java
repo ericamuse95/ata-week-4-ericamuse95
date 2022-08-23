@@ -1,6 +1,7 @@
 package com.kenzie.lists.itinerarylist;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public class Itinerary {
 
-    private List<Destination> destinations = new ArrayList<>();
+    public List<Destination> destinations = new ArrayList<>();
 
     /**
      * Add a new destination to the end of itinerary.
@@ -19,6 +20,7 @@ public class Itinerary {
      */
     public void addDestination(Destination destination) {
         // Implement the method here
+        destinations.add(destination);
     }
 
     /**
@@ -29,7 +31,7 @@ public class Itinerary {
      */
     public Destination getDestination(int position) {
         // Implement the method here
-        return null;
+        return destinations.get(position) ;
     }
 
     /**
@@ -40,9 +42,8 @@ public class Itinerary {
      */
     public Destination removeDestination(int position) {
         // Implement the method here
-        return null;
+        return destinations.remove(position);
     }
-
 
     /**
      * Get list of locations (cities) in the order in which they
@@ -52,7 +53,11 @@ public class Itinerary {
      */
     public List<String> getListOfLocations() {
         // Implement the method here
-        return new ArrayList<>();
+        ArrayList<String> listOfLocations = new ArrayList<>();
+        for (Destination destination : destinations) {
+            listOfLocations.add(destination.getLocation());
+        }
+        return listOfLocations;
     }
 
     /**
@@ -62,8 +67,11 @@ public class Itinerary {
      * @return total number of days spent in all locations.
      */
     public int getTotalNumberOfDays() {
-        // Implement the method here
-        return -1;
+        int numOfDays = 0;
+        for(Destination destination : destinations){
+            numOfDays = numOfDays + destination.getDaysAtLocation();
+        }
+        return numOfDays;
     }
 
     /**
@@ -73,6 +81,11 @@ public class Itinerary {
      */
     public int getNumberOfDestinations() {
         // Implement the method here
-        return -1;
+        int numOdDestinations = 0;
+        for(Destination destination : destinations){
+            numOdDestinations++;
+        }
+
+        return numOdDestinations;
     }
 }
