@@ -5,9 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerTest {
     private Customer nedflixCustomer;
@@ -28,51 +26,65 @@ class CustomerTest {
     @Test
     void compareTo_withAnEqualCustomer_returnsZero() {
         // GIVEN
+        Customer customer1 = new Customer("nedflix", nedflixJoinDate);
+        Customer customer2 = new Customer("nedflix", nedflixJoinDate);
 
         // WHEN
+        int result = customer1.compareTo(customer2);
 
         // THEN
-        fail("Test not implemented yet!");
+        assertEquals(0, result);
     }
 
     @Test
     void compareTo_withLaterCustomerName_returnsNegative() {
         // GIVEN
+        Customer customer2 = new Customer("nedflix", laterJoinDate);
 
         // WHEN
+        int result = nedflixCustomer.compareTo(customer2);
 
         // THEN
-        fail("Test not implemented yet!");
+        assertTrue(result < 0, String.format("expected %s to come before %s",nedflixCustomer,customer2));
     }
 
     @Test
     void compareTo_withEarlierCustomerName_returnsPositive() {
         // GIVEN
+        Customer customer1 = new Customer("nedflix", nedflixJoinDate);
+        Customer customer2 = new Customer("bob", earlierJoinDate);
 
         // WHEN
+        int result = customer1.compareTo(customer2);
 
         // THEN
-        fail("Test not implemented yet!");
+        assertTrue(result>0);
     }
 
     @Test
     void compareTo_withSameCustomerNameLaterJoinDate_returnsNegative() {
         // GIVEN
+        Customer customer1 = new Customer("nedflix", nedflixJoinDate);
+        Customer customer2 = new Customer("nedflix", laterJoinDate);
 
         // WHEN
+        int result = customer1.compareTo(customer2);
 
         // THEN
-        fail("Test not implemented yet!");
+        assertEquals(-1, result);
     }
 
     @Test
     void compareTo_withSameCustomerNameEarlierJoinDate_returnsPositive() {
         // GIVEN
+        Customer customer1 = new Customer("nedflix", nedflixJoinDate);
+        Customer customer2 = new Customer("nedflix", earlierJoinDate);
 
         // WHEN
+        int result = customer1.compareTo(customer2);
 
         // THEN
-        fail("Test not implemented yet!");
+        assertEquals(1, result);
     }
 
     // PARTICIPANTS: leave these tests below alone

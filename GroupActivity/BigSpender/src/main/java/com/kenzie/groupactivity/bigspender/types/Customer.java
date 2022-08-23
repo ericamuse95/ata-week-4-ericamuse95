@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * Represents a customer who uses AWS.
  */
-public class Customer {
+public class Customer implements Comparable<Customer> {
     private String name;
     private LocalDate joinDate;
 
@@ -28,7 +28,20 @@ public class Customer {
         return joinDate;
     }
 
+
     @Override
+    public int compareTo(Customer o) {
+        String name = this.name;
+        int result = name.compareTo(o.name);
+        if (result == 0) {
+            LocalDate date = this.joinDate;
+            result = date.compareTo(o.joinDate);
+        }
+        return result;
+    }
+
+
+        @Override
     public String toString() {
         return "Customer{" +
             "name='" + name + '\'' +
